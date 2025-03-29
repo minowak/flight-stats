@@ -4,10 +4,12 @@ import { PlaneIcon, PlusIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { FlightDataService } from "@/lib/services/flight-data-service";
-import { useEffect, useState } from "react";
+import { useAtom } from "jotai";
+import { selectedYearAtom } from "@/lib/atoms";
+import { ALL_FLIGHTS } from "@/lib/constants";
 
 export const TopBar: React.FC = () => {
-  const [selectedYear, setSelectedYear] = useState<string>()
+  const [selectedYear, setSelectedYear] = useAtom<string>(selectedYearAtom)
   const years = FlightDataService.getYears()
 
   return (
@@ -21,12 +23,14 @@ export const TopBar: React.FC = () => {
             </div>
           </div>
           <div>
-            <Select value={selectedYear} defaultValue={years[0]} onValueChange={setSelectedYear}>
+            <Select value={selectedYear} defaultValue={ALL_FLIGHTS} onValueChange={setSelectedYear}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Year" />
               </SelectTrigger>
               <SelectContent>
-                {years.map((option, idx) => <SelectItem key={"year_option_" + idx} value={option}>{option}</SelectItem>)}
+                <SelectItem value={ALL_FLIGHTS}>All ({years[ALL_FLIGHTS]})</SelectItem>
+                {Object.keys(years).filter((el) => el !== ALL_FLIGHTS).map((option, idx) =>
+                  <SelectItem key={"year_option_" + idx} value={option}>{option} ({years[option]})</SelectItem>)}
               </SelectContent>
             </Select>
           </div>

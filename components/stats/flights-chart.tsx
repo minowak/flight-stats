@@ -3,36 +3,41 @@
 import { FlightData } from "@/lib/types/flight-data-types";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "../ui/chart";
 import { Line, LineChart, XAxis } from "recharts";
-import { DateTime } from "luxon";
+import { parseDateTime } from "@/lib/utils";
+import { useAtom } from "jotai";
+import { selectedYearAtom } from "@/lib/atoms";
+import { ALL_FLIGHTS } from "@/lib/constants";
 
 type Props = {
   data: FlightData
 }
 
 type ChartDataPoint = {
-  year: string
+  label: string
   count: number
 }
 
 export const FlightsChart: React.FC<Props> = ({ data }: Props) => {
+  const [selectedYear] = useAtom<string>(selectedYearAtom)
+
   let chartData: Record<string, ChartDataPoint> = {}
 
   for (let flight of data.flights) {
-    const d = DateTime.fromFormat(flight.departureDate, "dd-MM-yyyy HH:mm")
-    const year = "" + d.year
+    const d = parseDateTime(flight.departureDate)
+    if (d.invalidReason) {
+      continue
+    }
+    const key = "" + (selectedYear === ALL_FLIGHTS ? d.year : d.monthShort)
 
-    if (!chartData[year]) {
-      chartData[year] = {
-        year,
+    if (!chartData[key]) {
+      chartData[key] = {
+        label: key,
         count: 0
       }
     }
 
-    chartData[year].count += 1
+    chartData[key].count += 1
   }
-
-  console.log(chartData)
-
 
   const chartConfig = {
     desktop: {
@@ -47,7 +52,7 @@ export const FlightsChart: React.FC<Props> = ({ data }: Props) => {
           <ChartTooltip content={<ChartTooltipContent />} />
           <Line dataKey="count" fill="var(--color-desktop)" radius={4} />
           <XAxis
-            dataKey="year"
+            dataKey="label"
             tickLine={false}
             tickMargin={10}
             axisLine={false}
