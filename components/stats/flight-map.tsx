@@ -9,6 +9,10 @@ import "leaflet.geodesic";
 import { FlightDataService } from "@/lib/services/flight-data-service";
 import { AirportCodesService } from "@/lib/services/airport-codes-service";
 import { useEffect } from "react";
+import { useAtom } from "jotai";
+import { selectedYearAtom } from "@/lib/atoms";
+import { ALL_FLIGHTS } from "@/lib/constants";
+import { parseDateTime } from "@/lib/utils";
 
 interface MapProps {
   posix: LatLngExpression | LatLngTuple,
@@ -18,6 +22,7 @@ interface MapProps {
 const GeodesicComponent = () => {
   const map = useMap();
   const flightData = FlightDataService.fetch()
+  const [selectedYear] = useAtom<string>(selectedYearAtom)
 
   useEffect(() => {
     if (!map) return;
@@ -28,6 +33,16 @@ const GeodesicComponent = () => {
     for (let flight of flightData.flights) {
       const origin = AirportCodesService.getByIata(flight.departureAirport)
       const destination = AirportCodesService.getByIata(flight.arrivalAirport)
+
+      const d = parseDateTime(flight.departureDate)
+
+      if (d.invalidReason) {
+        continue
+      }
+
+      if (selectedYear !== ALL_FLIGHTS && d.year !== +selectedYear) {
+        continue
+      }
 
       if (origin.iata !== prevDestination) {
         L.geodesic(

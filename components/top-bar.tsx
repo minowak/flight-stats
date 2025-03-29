@@ -27,7 +27,7 @@ export const TopBar: React.FC = () => {
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Year" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="z-[999]">
                 <SelectItem value={ALL_FLIGHTS}>All ({years[ALL_FLIGHTS]})</SelectItem>
                 {Object.keys(years).filter((el) => el !== ALL_FLIGHTS).map((option, idx) =>
                   <SelectItem key={"year_option_" + idx} value={option}>{option} ({years[option]})</SelectItem>)}
