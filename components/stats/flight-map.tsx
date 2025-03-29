@@ -1,9 +1,8 @@
 "use client"
 
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
-import { LatLngExpression, LatLngTuple } from "leaflet";
+import { LatLng, LatLngExpression, LatLngTuple } from "leaflet";
 import L from "leaflet"
-import { GeodesicLine } from 'react-leaflet-geodesic';
 
 import "leaflet/dist/leaflet.css";
 import "leaflet.geodesic";
@@ -23,22 +22,29 @@ const GeodesicComponent = () => {
   useEffect(() => {
     if (!map) return;
 
+    let points: LatLng[] = []
+
+    let prevDestination = "";
     for (let flight of flightData.flights) {
       const origin = AirportCodesService.getByIata(flight.departureAirport)
       const destination = AirportCodesService.getByIata(flight.arrivalAirport)
-      L.geodesic(
-        [
-          [
-            [+origin.latitude, +origin.longitude],
-            [+destination.latitude, +destination.longitude]],
-        ],
-        {
-          weight: 3,
-          color: "blue",
-          opacity: 0.5,
-          wrap: false
-        }
-      ).addTo(map);
+
+      if (origin.iata !== prevDestination) {
+        L.geodesic(
+          points,
+          {
+            weight: 3,
+            color: "#179299",
+            opacity: 0.5,
+            wrap: false
+          }
+        ).addTo(map)
+        points = []
+      }
+
+      points.push(new LatLng(+origin.latitude, +origin.longitude))
+      points.push(new LatLng(+destination.latitude, +destination.longitude))
+      prevDestination = destination.iata
     }
   }, [map]);
 
@@ -56,7 +62,7 @@ export default function FlightMap(props: MapProps) {
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
       />
       <GeodesicComponent />
     </MapContainer>
