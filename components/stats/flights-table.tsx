@@ -15,7 +15,6 @@ export const FlightsTable: React.FC<Props> = ({ data }: Props) => {
   const [offset, setOffset] = useState(0)
 
   useEffect(() => {
-    console.log("setting from: " + offset + " to " + (offset + pageSize))
     setFilteredData(data.flights.slice(offset, offset + pageSize))
   }, [data, offset, pageSize]);
 
