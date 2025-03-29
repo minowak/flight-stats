@@ -2,19 +2,19 @@
 
 import { BarChart, Bar, XAxis } from "recharts";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "../ui/chart";
-import { AirportStats } from "@/lib/types/stats-types";
+import { CountryStats } from "@/lib/types/stats-types";
 
 type Props = {
-  data: AirportStats
+  data: CountryStats
   top?: number
 }
 
-export const AirportChart: React.FC<Props> = ({ data, top }: Props) => {
+export const TopCountriesChart: React.FC<Props> = ({ data, top }: Props) => {
   let chartData = Object.values(data).toSorted((a, b) => b.count - a.count).slice(0, top || 10)
   const chartConfig = {
     desktop: {
       label: "Count",
-      color: "#7287fd",
+      color: "#179299",
     },
   } satisfies ChartConfig
 
@@ -25,7 +25,7 @@ export const AirportChart: React.FC<Props> = ({ data, top }: Props) => {
           <ChartTooltip content={<ChartTooltipContent />} />
           <Bar dataKey="count" fill="var(--color-desktop)" radius={4} />
           <XAxis
-            dataKey="data.iata"
+            dataKey="data.country_code"
             tickLine={false}
             tickMargin={10}
             axisLine={false}

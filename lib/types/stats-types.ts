@@ -8,7 +8,7 @@ export type AirportStat = {
 export type AirportStats = Record<string, AirportStat>
 export type CountryStats = Record<string, AirportStat>
 
-export type FlightsStats = {
+export type Stats = {
   count: number
   airportStats: AirportStats
   countryStats: CountryStats

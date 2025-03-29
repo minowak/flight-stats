@@ -564,6 +564,11 @@
   resolved "https://registry.yarnpkg.com/@types/d3-timer/-/d3-timer-3.0.2.tgz#70bbda77dc23aa727413e22e214afa3f0e852f70"
   integrity sha512-Ps3T8E8dZDam6fUyNiMkekK3XUsaUEik+idO9/YjPtfj2qruF8tFBXS7XhtE4iIXBLxhmLjP3SXpLhVf21I9Lw==
 
+"@types/luxon@^3.4.2":
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-3.4.2.tgz#e4fc7214a420173cea47739c33cdf10874694db7"
+  integrity sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==
+
 "@types/node@^20":
   version "20.17.27"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.17.27.tgz#dbf0f9e6f905e9004045742f94e8413e20bad776"
@@ -878,6 +883,11 @@ lucide-react@^0.484.0:
   version "0.484.0"
   resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.484.0.tgz#b746deb6576be178628a9e2c575432ab53ba6a1b"
   integrity sha512-oZy8coK9kZzvqhSgfbGkPtTgyjpBvs3ukLgDPv14dSOZtBtboryWF5o8i3qen7QbGg7JhiJBz5mK1p8YoMZTLQ==
+
+luxon@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.6.0.tgz#e84453dbdbd716b5eac95bee702b379863059f83"
+  integrity sha512-WE7p0p7W1xji9qxkLYsvcIxZyfP48GuFrWIBQZIsbjCyf65dG1rv4n83HcOyEyhvzxJCrUoObCRNFgRNIQ5KNA==
 
 nanoid@^3.3.6, nanoid@^3.3.8:
   version "3.3.11"

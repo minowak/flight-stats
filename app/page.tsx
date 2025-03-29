@@ -1,10 +1,11 @@
-import { AirportChart } from "@/components/stats/airport-chart";
-import { CountriesChart } from "@/components/stats/countries-chart";
+import { TopAirportChart } from "@/components/stats/top-airport-chart";
+import { TopCountriesChart } from "@/components/stats/top-countries-chart";
 import { DistanceToTheMoon } from "@/components/stats/distance-to-the-moon";
 import { FlightsTable } from "@/components/stats/flights-table";
 import { StatsCard } from "@/components/stats/stats-card";
 import { FlightDataService } from "@/lib/services/flight-data-service";
 import { StatsService } from "@/lib/services/stats-service";
+import { FlightsChart } from "@/components/stats/flights-chart";
 
 export default function Home() {
   const flightData = FlightDataService.fetch()
@@ -23,12 +24,15 @@ export default function Home() {
       </StatsCard>
       <div className="grid grid-cols-2 gap-x-4">
         <StatsCard title="Top airports">
-          <AirportChart data={stats.airportStats} />
+          <TopAirportChart data={stats.airportStats} />
         </StatsCard>
         <StatsCard title="Top countries">
-          <CountriesChart data={stats.countryStats} />
+          <TopCountriesChart data={stats.countryStats} />
         </StatsCard>
       </div>
+      <StatsCard title="Flights">
+        <FlightsChart data={flightData} />
+      </StatsCard>
       <StatsCard title="Flights list">
         <FlightsTable data={flightData} />
       </StatsCard>

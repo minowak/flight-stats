@@ -1,5 +1,5 @@
 import { FlightData } from "../types/flight-data-types";
-import { AirportStats, CountryStats, FlightsStats } from "../types/stats-types";
+import { AirportStats, CountryStats, Stats } from "../types/stats-types";
 import { AirportCodesService } from "./airport-codes-service";
 
 function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
@@ -20,7 +20,7 @@ function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
 }
 
 export const StatsService = {
-  calculate: (data: FlightData): FlightsStats => {
+  calculate: (data: FlightData): Stats => {
     const airportStats: AirportStats = {}
     const countryStats: CountryStats = {}
 
