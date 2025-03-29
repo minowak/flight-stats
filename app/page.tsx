@@ -13,6 +13,7 @@ import { useAtom } from "jotai";
 import { selectedYearAtom } from "@/lib/atoms";
 import { DateTime } from "luxon";
 import { ALL_FLIGHTS } from "@/lib/constants";
+import { EarthIcon, MoonStarIcon, PlaneTakeoffIcon, SplineIcon, TableIcon, TowerControlIcon } from "lucide-react";
 
 export default function Home() {
   const allData = FlightDataService.fetch()
@@ -39,25 +40,25 @@ export default function Home() {
   return (
     <main className="space-y-4">
       <div className="grid grid-cols-3 gap-x-4">
-        <StatsCard title="Flights" value={stats.count} />
-        <StatsCard title="Airports" value={Object.keys(stats.airportStats).length} />
-        <StatsCard title="Total distance" value={distance.toLocaleString(undefined, { maximumFractionDigits: 0 }) + " km"} />
+        <StatsCard title="Flights" icon={<PlaneTakeoffIcon />} value={stats.count} />
+        <StatsCard title="Airports" icon={<TowerControlIcon />} value={Object.keys(stats.airportStats).length} />
+        <StatsCard title="Total distance" icon={<SplineIcon />} value={distance.toLocaleString(undefined, { maximumFractionDigits: 0 }) + " km"} />
       </div>
-      <StatsCard title="Distance to the moon">
+      <StatsCard title="Distance to the moon" icon={<MoonStarIcon />}>
         <DistanceToTheMoon distance={distance} />
       </StatsCard>
       <div className="grid grid-cols-2 gap-x-4">
-        <StatsCard title="Top airports">
+        <StatsCard title="Top airports" icon={<TowerControlIcon />}>
           <TopAirportChart data={stats.airportStats} />
         </StatsCard>
-        <StatsCard title="Top countries">
+        <StatsCard title="Top countries" icon={<EarthIcon />}>
           <TopCountriesChart data={stats.countryStats} />
         </StatsCard>
       </div>
-      <StatsCard title="Flights">
+      <StatsCard title="Flights" icon={<PlaneTakeoffIcon />}>
         <FlightsChart data={flightData} />
       </StatsCard>
-      <StatsCard title="Flights list">
+      <StatsCard title="Flights list" icon={<TableIcon />}>
         <FlightsTable data={flightData} />
       </StatsCard>
     </main>
