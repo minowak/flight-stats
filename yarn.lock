@@ -833,6 +833,11 @@ leaflet-defaulticon-compatibility@^0.1.2:
   resolved "https://registry.yarnpkg.com/leaflet-defaulticon-compatibility/-/leaflet-defaulticon-compatibility-0.1.2.tgz#f5e1a5841aeab9d1682d17887348855a741b3c2a"
   integrity sha512-IrKagWxkTwzxUkFIumy/Zmo3ksjuAu3zEadtOuJcKzuXaD76Gwvg2Z1mLyx7y52ykOzM8rAH5ChBs4DnfdGa6Q==
 
+leaflet.geodesic@^2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/leaflet.geodesic/-/leaflet.geodesic-2.7.1.tgz#bb0681c9196266401cc2fb7b021ea50815635d01"
+  integrity sha512-28mjn13lv0Iv4xnojqLh1wVSFaGZy8DzKQyu66a/3uQkyRB5fVuGZwlDzJJygwI0DEMyLVzLeJUOPd95H3OFrA==
+
 leaflet@^1.9.4:
   version "1.9.4"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.9.4.tgz#23fae724e282fa25745aff82ca4d394748db7d8d"
