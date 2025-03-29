@@ -13,7 +13,8 @@ import { useAtom } from "jotai";
 import { selectedYearAtom } from "@/lib/atoms";
 import { DateTime } from "luxon";
 import { ALL_FLIGHTS } from "@/lib/constants";
-import { EarthIcon, MoonStarIcon, PlaneTakeoffIcon, SplineIcon, TableIcon, TowerControlIcon } from "lucide-react";
+import { EarthIcon, MapIcon, MoonStarIcon, PlaneTakeoffIcon, SplineIcon, TableIcon, TowerControlIcon } from "lucide-react";
+import { FlightMapWrapper } from "@/components/stats/flight-map.wrapper";
 
 export default function Home() {
   const allData = FlightDataService.fetch()
@@ -57,6 +58,9 @@ export default function Home() {
       </div>
       <StatsCard title="Flights" icon={<PlaneTakeoffIcon />}>
         <FlightsChart data={flightData} />
+      </StatsCard>
+      <StatsCard title="Map" icon={<MapIcon />}>
+        <FlightMapWrapper />
       </StatsCard>
       <StatsCard title="Flights list" icon={<TableIcon />}>
         <FlightsTable data={flightData} />
