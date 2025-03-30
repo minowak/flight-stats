@@ -6,6 +6,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function parseDateTime(date: string) {
+export function parseDateTime(date: string, zone?: string) {
+  if (zone) {
+    return DateTime.fromFormat(date, "dd-MM-yyyy HH:mm", { zone })
+  }
   return DateTime.fromFormat(date, "dd-MM-yyyy HH:mm")
 }

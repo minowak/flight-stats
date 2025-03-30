@@ -13,16 +13,21 @@ import { useAtom } from "jotai";
 import { selectedYearAtom } from "@/lib/atoms";
 import { DateTime } from "luxon";
 import { ALL_FLIGHTS } from "@/lib/constants";
-import { EarthIcon, MapIcon, MoonStarIcon, PlaneTakeoffIcon, SplineIcon, TableIcon, TowerControlIcon } from "lucide-react";
+import { ClockIcon, EarthIcon, MapIcon, MoonStarIcon, PlaneTakeoffIcon, SplineIcon, TableIcon, TowerControlIcon } from "lucide-react";
 import { FlightMapWrapper } from "@/components/stats/flight-map.wrapper";
 
 export default function Home() {
   const allData = FlightDataService.fetch()
   const [selectedYear] = useAtom<string>(selectedYearAtom)
   const [flightData, setFlightData] = useState(allData)
+  const [time, setTime] = useState("")
 
   const stats = StatsService.calculate(flightData)
   const distance = StatsService.calculateDistance(flightData)
+
+  useEffect(() => {
+    StatsService.fetchTimeSpent(flightData).then(setTime)
+  }, [flightData])
 
   useEffect(() => {
     if (selectedYear === ALL_FLIGHTS) {
@@ -40,10 +45,11 @@ export default function Home() {
 
   return (
     <main className="space-y-4">
-      <div className="grid grid-cols-3 gap-x-4">
+      <div className="grid grid-cols-4 gap-x-4">
         <StatsCard title="Flights" icon={<PlaneTakeoffIcon />} value={stats.count} />
         <StatsCard title="Airports" icon={<TowerControlIcon />} value={Object.keys(stats.airportStats).length} />
-        <StatsCard title="Total distance" icon={<SplineIcon />} value={distance.toLocaleString(undefined, { maximumFractionDigits: 0 }) + " km"} />
+        <StatsCard title="Total distance" icon={<SplineIcon />} value={"" + distance.toLocaleString(undefined, { maximumFractionDigits: 0 }) + " km"} />
+        <StatsCard title="Total time" icon={<ClockIcon />} value={"" + time} loading={!time} />
       </div>
       <StatsCard title="Distance to the moon" icon={<MoonStarIcon />}>
         <DistanceToTheMoon distance={distance} />

@@ -2,7 +2,7 @@
 
 import { FlightData } from "@/lib/types/flight-data-types";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "../ui/chart";
-import { Line, LineChart, XAxis } from "recharts";
+import { Area, AreaChart, Line, LineChart, XAxis } from "recharts";
 import { parseDateTime } from "@/lib/utils";
 import { useAtom } from "jotai";
 import { selectedYearAtom } from "@/lib/atoms";
@@ -42,22 +42,23 @@ export const FlightsChart: React.FC<Props> = ({ data }: Props) => {
   const chartConfig = {
     desktop: {
       label: "Count",
+      color: "#7287fd",
     },
   } satisfies ChartConfig
 
   return (
     <div>
       <ChartContainer config={chartConfig} className="min-h-[200px] max-h-[400px] w-full">
-        <LineChart data={Object.values(chartData)}>
+        <AreaChart data={Object.values(chartData)}>
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Line dataKey="count" fill="var(--color-desktop)" radius={4} />
+          <Area dataKey="count" fill="var(--color-desktop)" radius={4} fillOpacity={0.03} />
           <XAxis
             dataKey="label"
             tickLine={false}
             tickMargin={10}
             axisLine={false}
           />
-        </LineChart>
+        </AreaChart>
       </ChartContainer>
     </div>
   );

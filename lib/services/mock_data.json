@@ -99,7 +99,7 @@
       "flightNumber": "AS 209"
     },
     {
-      "departureDate": "15-05-2016 18:50",
+      "departureDate": "15-05-2017 18:50",
       "arrivalDate": "16-05-2017 14:15",
       "departureAirport": "SEA",
       "arrivalAirport": "FRA",
@@ -428,7 +428,7 @@
       "flightNumber": "PS 925"
     },
     {
-      "departureDate": "07-08-2019 16:10",
+      "departureDate": "07-08-2019 06:10",
       "arrivalDate": "07-08-2019 11:20",
       "departureAirport": "KRK",
       "arrivalAirport": "KUT",
@@ -680,7 +680,7 @@
       "flightNumber": "FR 7263"
     },
     {
-      "departureDate": "21-021-2022 11:25",
+      "departureDate": "21-01-2022 11:25",
       "arrivalDate": "21-01-2022 13:55",
       "departureAirport": "KRK",
       "arrivalAirport": "KBP",
@@ -709,7 +709,7 @@
     },
     {
       "departureDate": "04-04-2022 07:00",
-      "arrivalDate": "0404-2022 15:34",
+      "arrivalDate": "04-04-2022 15:34",
       "departureAirport": "SFO",
       "arrivalAirport": "JFK",
       "flightNumber": "AS 1022"
@@ -744,7 +744,7 @@
     },
     {
       "departureDate": "05-06-2022 19:20",
-      "arrivalDate": "06-06-2022 15:!5",
+      "arrivalDate": "06-06-2022 15:15",
       "departureAirport": "SFO",
       "arrivalAirport": "FRA",
       "flightNumber": "UA 926"
@@ -771,8 +771,8 @@
       "flightNumber": "FR 3715"
     },
     {
-      "departureDate": "25-20-2022 07:45",
-      "arrivalDate": "25-20-2022 12:00",
+      "departureDate": "25-10-2022 07:45",
+      "arrivalDate": "25-10-2022 12:00",
       "departureAirport": "KTW",
       "arrivalAirport": "RMF",
       "flightNumber": "EAF 224"

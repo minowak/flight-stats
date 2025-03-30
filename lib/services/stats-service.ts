@@ -1,6 +1,11 @@
+"use client"
+
+import { Duration, Interval } from "luxon";
 import { FlightData } from "../types/flight-data-types";
 import { AirportStats, CountryStats, Stats } from "../types/stats-types";
 import { AirportCodesService } from "./airport-codes-service";
+import { find as findTimezone } from "browser-geo-tz";
+import { parseDateTime } from "../utils";
 
 function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
   const R = 6371; // Earth's radius in kilometers
@@ -64,5 +69,30 @@ export const StatsService = {
     }
 
     return total
+  },
+
+  fetchTimeSpent: async (data: FlightData) => {
+    let result = Duration.fromMillis(0)
+
+    for (let flight of data.flights) {
+      const origin = AirportCodesService.getByIata(flight.departureAirport)
+      const destination = AirportCodesService.getByIata(flight.arrivalAirport)
+      try {
+        const originTz = await findTimezone(+origin.latitude, +origin.longitude)
+        const destinationTz = await findTimezone(+destination.latitude, +destination.longitude)
+
+        const originDate = parseDateTime(flight.departureDate, originTz[0])
+        const destinationDate = parseDateTime(flight.arrivalDate, destinationTz[0])
+
+        const interval = Interval.fromDateTimes(originDate, destinationDate)
+        result = result.plus(interval.toDuration())
+      } catch {
+        console.error("Error while calculating interval")
+      }
+    }
+
+    return result.shiftTo("days", "hours", "minutes").toHuman({
+      unitDisplay: "short"
+    })
   }
 }
