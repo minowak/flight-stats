@@ -7,10 +7,65 @@ import { FlightDataService } from "@/lib/services/flight-data-service";
 import { useAtom } from "jotai";
 import { selectedYearAtom } from "@/lib/atoms";
 import { ALL_FLIGHTS } from "@/lib/constants";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { firebaseConfig } from "@/lib/firebase/config";
+import { onAuthStateChanged, signInWithGoogle, signOut } from "@/lib/firebase/auth";
+import { User } from "firebase/auth";
 
-export const TopBar: React.FC = () => {
+// TODO move to hooks (or somewhere)?
+function useUserSession(initialUser: User | null | undefined) {
+  const [user, setUser] = useState<User | null | undefined>(initialUser)
+  const router = useRouter()
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      const serializedFirebaseConfig = encodeURIComponent(JSON.stringify(firebaseConfig))
+      const serviceWorkerUrl = `/auth-service-worker.js?firebaseConfig=${serializedFirebaseConfig}`
+
+      navigator.serviceWorker.register(serviceWorkerUrl).then((registration) => console.log("scope is: ", registration.scope))
+    }
+  }, [])
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged((authUser) => {
+      setUser(authUser)
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  useEffect(() => {
+    onAuthStateChanged((authUser) => {
+      if (user === undefined) return
+
+      if (user?.email !== authUser?.email) {
+        router.refresh()
+      }
+    })
+  }, [user])
+
+  return user
+}
+
+type Props = {
+  initialUser: User | null | undefined
+}
+
+export const TopBar: React.FC<Props> = ({ initialUser }) => {
+  const user = useUserSession(initialUser)
   const [selectedYear, setSelectedYear] = useAtom<string>(selectedYearAtom)
   const years = FlightDataService.getYears()
+
+  const handleSignOut = (event: any) => {
+    event.preventDefault()
+    signOut()
+  }
+
+  const handleSignIn = (event: any) => {
+    event.preventDefault()
+    signInWithGoogle()
+  }
 
   return (
     <menu className="p-4 border-b fixed top-0 left-0 right-0 bg-background/30 backdrop-blur-md z-[999]">
@@ -35,13 +90,18 @@ export const TopBar: React.FC = () => {
             </Select>
           </div>
         </div>
-        <div>
+        <div className="flex items-center gap-4">
           <Button size="sm">
             <div className="flex gap-2 items-center">
               <PlusIcon />
               <div>Add</div>
             </div>
           </Button>
+          {user ? (
+            <Button onClick={handleSignOut} size="sm">Sign out</Button>
+          ) : (
+            <Button onClick={handleSignIn} size="sm">Login</Button>
+          )}
         </div>
       </div>
     </menu>

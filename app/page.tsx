@@ -44,33 +44,35 @@ export default function Home() {
   }, [selectedYear])
 
   return (
-    <main className="space-y-4">
-      <div className="grid grid-cols-4 gap-x-4">
-        <StatsCard title="Flights" icon={<PlaneTakeoffIcon />} value={stats.count} />
-        <StatsCard title="Airports" icon={<TowerControlIcon />} value={Object.keys(stats.airportStats).length} />
-        <StatsCard title="Total distance" icon={<SplineIcon />} value={"" + distance.toLocaleString(undefined, { maximumFractionDigits: 0 }) + " km"} />
-        <StatsCard title="Total time" icon={<ClockIcon />} value={"" + time} loading={!time} />
-      </div>
-      <StatsCard title="Distance to the moon" icon={<MoonStarIcon />}>
-        <DistanceToTheMoon distance={distance} />
-      </StatsCard>
-      <div className="grid grid-cols-2 gap-x-4">
-        <StatsCard title="Top airports" icon={<TowerControlIcon />}>
-          <TopAirportChart data={stats.airportStats} />
+    <div className="mt-16">
+      <main className="space-y-4">
+        <div className="grid grid-cols-4 gap-x-4">
+          <StatsCard title="Flights" icon={<PlaneTakeoffIcon />} value={stats.count} />
+          <StatsCard title="Airports" icon={<TowerControlIcon />} value={Object.keys(stats.airportStats).length} />
+          <StatsCard title="Total distance" icon={<SplineIcon />} value={"" + distance.toLocaleString(undefined, { maximumFractionDigits: 0 }) + " km"} />
+          <StatsCard title="Total time" icon={<ClockIcon />} value={"" + time} loading={!time} />
+        </div>
+        <StatsCard title="Distance to the moon" icon={<MoonStarIcon />}>
+          <DistanceToTheMoon distance={distance} />
         </StatsCard>
-        <StatsCard title="Top countries" icon={<EarthIcon />}>
-          <TopCountriesChart data={stats.countryStats} />
+        <div className="grid grid-cols-2 gap-x-4">
+          <StatsCard title="Top airports" icon={<TowerControlIcon />}>
+            <TopAirportChart data={stats.airportStats} />
+          </StatsCard>
+          <StatsCard title="Top countries" icon={<EarthIcon />}>
+            <TopCountriesChart data={stats.countryStats} />
+          </StatsCard>
+        </div>
+        <StatsCard title="Flights" icon={<PlaneTakeoffIcon />}>
+          <FlightsChart data={flightData} />
         </StatsCard>
-      </div>
-      <StatsCard title="Flights" icon={<PlaneTakeoffIcon />}>
-        <FlightsChart data={flightData} />
-      </StatsCard>
-      <StatsCard title="Map" icon={<MapIcon />}>
-        <FlightMapWrapper />
-      </StatsCard>
-      <StatsCard title="Flights list" icon={<TableIcon />}>
-        <FlightsTable data={flightData} />
-      </StatsCard>
-    </main>
+        <StatsCard title="Map" icon={<MapIcon />}>
+          <FlightMapWrapper />
+        </StatsCard>
+        <StatsCard title="Flights list" icon={<TableIcon />}>
+          <FlightsTable data={flightData} />
+        </StatsCard>
+      </main>
+    </div>
   );
 }
