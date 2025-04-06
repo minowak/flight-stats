@@ -6,7 +6,6 @@ import { DistanceToTheMoon } from "@/components/stats/distance-to-the-moon";
 import { FlightsTable } from "@/components/stats/flights-table";
 import { StatsCard } from "@/components/stats/stats-card";
 import { FlightDataService } from "@/lib/services/flight-data-service";
-import { StatsService } from "@/lib/services/stats-service";
 import { FlightsChart } from "@/components/stats/flights-chart";
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
@@ -16,20 +15,24 @@ import { ALL_FLIGHTS } from "@/lib/constants";
 import { ClockIcon, EarthIcon, MapIcon, MoonStarIcon, PlaneTakeoffIcon, SplineIcon, TableIcon, TowerControlIcon } from "lucide-react";
 import { FlightMapWrapper } from "@/components/stats/flight-map.wrapper";
 import { useUserSession } from "@/lib/user-session";
+import { Stats } from "@/lib/types/stats-types";
+import { calculateDistance, calculateStats, fetchTimeSpent } from "@/lib/actions/stats-actions";
 
 export default function Home() {
   const allData = FlightDataService.fetch()
   const [selectedYear] = useAtom<string>(selectedYearAtom)
   const [flightData, setFlightData] = useState(allData)
+
   const [time, setTime] = useState("")
+  const [stats, setStats] = useState<Stats>()
+  const [distance, setDistance] = useState(0)
 
   const user = useUserSession(null)
 
-  const stats = StatsService.calculate(flightData)
-  const distance = StatsService.calculateDistance(flightData)
-
   useEffect(() => {
-    StatsService.fetchTimeSpent(flightData).then(setTime)
+    fetchTimeSpent(flightData).then(setTime)
+    calculateStats(flightData).then(setStats)
+    calculateDistance(flightData).then(setDistance)
   }, [flightData])
 
   useEffect(() => {
@@ -54,8 +57,8 @@ export default function Home() {
     <div className="mt-16">
       <div className="space-y-4">
         <div className="grid grid-cols-4 gap-x-4">
-          <StatsCard title="Flights" icon={<PlaneTakeoffIcon />} value={stats.count} />
-          <StatsCard title="Airports" icon={<TowerControlIcon />} value={Object.keys(stats.airportStats).length} />
+          <StatsCard title="Flights" icon={<PlaneTakeoffIcon />} value={stats?.count} />
+          <StatsCard title="Airports" icon={<TowerControlIcon />} value={stats ? Object.keys(stats.airportStats).length : 0} />
           <StatsCard title="Total distance" icon={<SplineIcon />} value={"" + distance.toLocaleString(undefined, { maximumFractionDigits: 0 }) + " km"} />
           <StatsCard title="Total time" icon={<ClockIcon />} value={"" + time} loading={!time} />
         </div>
@@ -64,10 +67,10 @@ export default function Home() {
         </StatsCard>
         <div className="grid grid-cols-2 gap-x-4">
           <StatsCard title="Top airports" icon={<TowerControlIcon />}>
-            <TopAirportChart data={stats.airportStats} />
+            <TopAirportChart data={stats?.airportStats} />
           </StatsCard>
           <StatsCard title="Top countries" icon={<EarthIcon />}>
-            <TopCountriesChart data={stats.countryStats} />
+            <TopCountriesChart data={stats?.countryStats} />
           </StatsCard>
         </div>
         <StatsCard title="Flights" icon={<PlaneTakeoffIcon />}>

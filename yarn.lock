@@ -1133,16 +1133,6 @@ array-source@0.0:
   resolved "https://registry.yarnpkg.com/array-source/-/array-source-0.0.4.tgz#a525df4a84b1376d27c677cd426a97c3882f8aca"
   integrity sha512-frNdc+zBn80vipY+GdcJkLEbMWj3xmzArYApmUGxoiV8uAu/ygcs9icPdsGdA26h0MkHUMW6EN2piIvVx+M5Mw==
 
-browser-geo-tz@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/browser-geo-tz/-/browser-geo-tz-0.2.0.tgz#6f6cc4e619d4fa6554589e15d725b34ddba79145"
-  integrity sha512-UFP6t9fWP5aIqMQOPNJNJqfvhY7rnnDKlrBaBRS7ctFfcUwtXoD/EjNo7Sp1olssKUOBNyxg/ZfUQfa/84mXFQ==
-  dependencies:
-    "@turf/boolean-point-in-polygon" "^7.1.0"
-    "@turf/helpers" "^7.1.0"
-    geobuf "^3.0.2"
-    pbf "^3.2.1"
-
 buffer-from@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.2.tgz#2b146a6fd72e80b4f55d255f35ed59a3a9a41bd5"
@@ -1403,6 +1393,16 @@ firebase@^11.6.0:
     "@firebase/storage-compat" "0.3.17"
     "@firebase/util" "1.11.0"
     "@firebase/vertexai" "1.2.1"
+
+geo-tz@^8.1.4:
+  version "8.1.4"
+  resolved "https://registry.yarnpkg.com/geo-tz/-/geo-tz-8.1.4.tgz#411e4b8dc980098aaf9cf2012a3108f2e047ea1e"
+  integrity sha512-xayeOC05wgy6JATU/k7GFHTMfSimzL1Fi3KSzt2GqvEnP1ZFXyQ9V4VAiTrTYhZSmRr0dbchZkximSegHZNUfA==
+  dependencies:
+    "@turf/boolean-point-in-polygon" "^7.1.0"
+    "@turf/helpers" "^7.1.0"
+    geobuf "^3.0.2"
+    pbf "^3.2.1"
 
 geobuf@^3.0.2:
   version "3.0.2"

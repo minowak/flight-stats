@@ -5,11 +5,13 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "
 import { CountryStats } from "@/lib/types/stats-types";
 
 type Props = {
-  data: CountryStats
+  data?: CountryStats
   top?: number
 }
 
 export const TopCountriesChart: React.FC<Props> = ({ data, top }: Props) => {
+  if (!data) return
+
   let chartData = Object.values(data).toSorted((a, b) => b.count - a.count).slice(0, top || 10)
   const chartConfig = {
     desktop: {
