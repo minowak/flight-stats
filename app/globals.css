@@ -138,3 +138,7 @@
 main {
   @apply p-4;
 }
+
+button {
+  @apply outline-none;
+}

@@ -68,7 +68,7 @@ export default function Home() {
   }
 
   return (
-    <div className="mt-16">
+    <div>
       <div className="space-y-4">
         <div className="grid grid-cols-4 gap-x-4">
           <StatsCard title="Flights" icon={<PlaneTakeoffIcon />} value={stats?.count} />

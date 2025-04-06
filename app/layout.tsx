@@ -4,6 +4,7 @@ import "./globals.css";
 import { TopBar } from "@/components/top-bar";
 import { getAuthenticatedAppForUser } from "@/lib/firebase/serverApp";
 import { User } from "firebase/auth";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export const dynamic = "force-dynamic";
 
@@ -32,12 +33,16 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
       >
-        <TopBar initialUser={(currentUser?.toJSON()) as User} />
-        <main className="mt-4">
-          {children}
-        </main>
+        <div className="flex flex-col justify-stretch h-screen">
+          <TopBar initialUser={(currentUser?.toJSON()) as User} />
+          <ScrollArea className="h-full">
+            <main className="mt-16">
+              {children}
+            </main>
+          </ScrollArea>
+        </div>
       </body>
     </html>
   );
