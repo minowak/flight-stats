@@ -40,28 +40,32 @@ export const TopBar: React.FC<Props> = ({ initialUser }) => {
               Flight Stats
             </div>
           </div>
-          <div>
-            <Select value={selectedYear} defaultValue={ALL_FLIGHTS} onValueChange={setSelectedYear}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Year" />
-              </SelectTrigger>
-              <SelectContent className="z-[999]">
-                <SelectItem value={ALL_FLIGHTS}>All ({years[ALL_FLIGHTS]})</SelectItem>
-                {Object.keys(years).filter((el) => el !== ALL_FLIGHTS).map((option, idx) =>
-                  <SelectItem key={"year_option_" + idx} value={option}>{option} ({years[option]})</SelectItem>)}
-              </SelectContent>
-            </Select>
-          </div>
+          {user && (
+            <div>
+              <Select value={selectedYear} defaultValue={ALL_FLIGHTS} onValueChange={setSelectedYear}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Year" />
+                </SelectTrigger>
+                <SelectContent className="z-[999]">
+                  <SelectItem value={ALL_FLIGHTS}>All ({years[ALL_FLIGHTS]})</SelectItem>
+                  {Object.keys(years).filter((el) => el !== ALL_FLIGHTS).map((option, idx) =>
+                    <SelectItem key={"year_option_" + idx} value={option}>{option} ({years[option]})</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-4">
-          <Button size="sm">
-            <div className="flex gap-2 items-center">
-              <PlusIcon />
-              <div>Add</div>
-            </div>
-          </Button>
           {user ? (
-            <Button onClick={handleSignOut} size="sm">Sign out</Button>
+            <>
+              <Button size="sm">
+                <div className="flex gap-2 items-center">
+                  <PlusIcon />
+                  <div>Add</div>
+                </div>
+              </Button>
+              <Button onClick={handleSignOut} size="sm">Sign out</Button>
+            </>
           ) : (
             <Button onClick={handleSignIn} size="sm">Login</Button>
           )}

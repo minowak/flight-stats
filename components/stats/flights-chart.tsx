@@ -17,11 +17,9 @@ type ChartDataPoint = {
   count: number
 }
 
-export const FlightsChart: React.FC<Props> = ({ data }: Props) => {
-  const [selectedYear] = useAtom<string>(selectedYearAtom)
-
+const getChartPoints = (data: FlightData, selectedYear: string) => {
   let chartData: Record<string, ChartDataPoint> = {}
-
+  let prev = 0
   for (let flight of data.flights) {
     const d = parseDateTime(flight.departureDate)
     if (d.invalidReason) {
@@ -37,7 +35,24 @@ export const FlightsChart: React.FC<Props> = ({ data }: Props) => {
     }
 
     chartData[key].count += 1
+
+    if (prev > 0) {
+      for (let i = prev + 1; i < d.year; i++) {
+        chartData["" + i] = {
+          label: "" + i,
+          count: 0
+        }
+      }
+    }
+    prev = d.year
   }
+  return chartData
+}
+
+export const FlightsChart: React.FC<Props> = ({ data }: Props) => {
+  const [selectedYear] = useAtom<string>(selectedYearAtom)
+
+  const chartData = getChartPoints(data, selectedYear)
 
   const chartConfig = {
     desktop: {

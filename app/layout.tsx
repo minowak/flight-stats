@@ -35,7 +35,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <TopBar initialUser={(currentUser?.toJSON()) as User} />
-        <main className="mt-16">
+        <main className="mt-4">
           {children}
         </main>
       </body>

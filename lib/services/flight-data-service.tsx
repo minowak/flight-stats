@@ -12,6 +12,7 @@ export const FlightDataService = {
     const data = FlightDataService.fetch()
     let result: Record<string, number> = { [ALL_FLIGHTS]: data.flights.length }
 
+    let prev = 0
     for (let flight of data.flights) {
       const d = parseDateTime(flight.departureDate)
       if (d.invalidReason) {
@@ -22,6 +23,13 @@ export const FlightDataService = {
         result[year] = 0
       }
       result[year] += 1
+
+      if (prev > 0) {
+        for (let i = prev + 1; i < d.year; i++) {
+          result["" + i] = 0
+        }
+      }
+      prev = d.year
     }
 
     return result
