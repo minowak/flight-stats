@@ -1,15 +1,11 @@
-import { FlightData } from "../types/flight-data-types"
-import mockData from "./mock_data.json"
 import { parseDateTime } from "../utils"
 import { ALL_FLIGHTS } from "../constants"
+import { FlightData } from "../types/flight-data-types"
 
 export const FlightDataService = {
-  fetch: (): FlightData => {
-    return mockData
-  },
+  getYears: (data: FlightData): Record<string, number> => {
+    if (!data?.flights) return {}
 
-  getYears: (): Record<string, number> => {
-    const data = FlightDataService.fetch()
     let result: Record<string, number> = { [ALL_FLIGHTS]: data.flights.length }
 
     let prev = 0

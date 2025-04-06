@@ -9,7 +9,7 @@ import { selectedYearAtom } from "@/lib/atoms";
 import { ALL_FLIGHTS } from "@/lib/constants";
 
 type Props = {
-  data: FlightData
+  data?: FlightData
 }
 
 type ChartDataPoint = {
@@ -51,6 +51,8 @@ const getChartPoints = (data: FlightData, selectedYear: string) => {
 
 export const FlightsChart: React.FC<Props> = ({ data }: Props) => {
   const [selectedYear] = useAtom<string>(selectedYearAtom)
+
+  if (!data?.flights) return null
 
   const chartData = getChartPoints(data, selectedYear)
 

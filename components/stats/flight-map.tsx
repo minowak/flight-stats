@@ -2,17 +2,17 @@
 
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import { LatLng, LatLngExpression, LatLngTuple } from "leaflet";
-import L from "leaflet"
+import L from "leaflet";
 
 import "leaflet/dist/leaflet.css";
 import "leaflet.geodesic";
-import { FlightDataService } from "@/lib/services/flight-data-service";
 import { AirportCodesService } from "@/lib/services/airport-codes-service";
 import { useEffect } from "react";
 import { useAtom } from "jotai";
-import { selectedYearAtom } from "@/lib/atoms";
+import { flightDataAtom, selectedYearAtom } from "@/lib/atoms";
 import { ALL_FLIGHTS } from "@/lib/constants";
 import { parseDateTime } from "@/lib/utils";
+import { FlightData } from "@/lib/types/flight-data-types";
 
 interface MapProps {
   posix: LatLngExpression | LatLngTuple,
@@ -21,11 +21,12 @@ interface MapProps {
 
 const GeodesicComponent = () => {
   const map = useMap();
-  const flightData = FlightDataService.fetch()
+  const [flightData] = useAtom<FlightData>(flightDataAtom)
   const [selectedYear] = useAtom<string>(selectedYearAtom)
 
   useEffect(() => {
     if (!map) return;
+    if (!flightData) return;
 
     let points: LatLng[] = []
 
@@ -61,7 +62,7 @@ const GeodesicComponent = () => {
       points.push(new LatLng(+destination.latitude, +destination.longitude))
       prevDestination = destination.iata
     }
-  }, [map]);
+  }, [map, flightData]);
 
   return null;
 };

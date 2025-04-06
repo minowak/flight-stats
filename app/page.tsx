@@ -5,11 +5,10 @@ import { TopCountriesChart } from "@/components/stats/top-countries-chart";
 import { DistanceToTheMoon } from "@/components/stats/distance-to-the-moon";
 import { FlightsTable } from "@/components/stats/flights-table";
 import { StatsCard } from "@/components/stats/stats-card";
-import { FlightDataService } from "@/lib/services/flight-data-service";
 import { FlightsChart } from "@/components/stats/flights-chart";
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
-import { selectedYearAtom } from "@/lib/atoms";
+import { flightDataAtom, selectedYearAtom } from "@/lib/atoms";
 import { DateTime } from "luxon";
 import { ALL_FLIGHTS } from "@/lib/constants";
 import { ClockIcon, EarthIcon, MapIcon, MoonStarIcon, PlaneTakeoffIcon, SplineIcon, TableIcon, TowerControlIcon } from "lucide-react";
@@ -17,11 +16,13 @@ import { FlightMapWrapper } from "@/components/stats/flight-map.wrapper";
 import { useUserSession } from "@/lib/user-session";
 import { Stats } from "@/lib/types/stats-types";
 import { calculateDistance, calculateStats, fetchTimeSpent } from "@/lib/actions/stats-actions";
+import { FlightData } from "@/lib/types/flight-data-types";
+import { getFlights } from "@/lib/firebase/firestore";
 
 export default function Home() {
-  const allData = FlightDataService.fetch()
+  const [allData, setAllData] = useAtom<FlightData>(flightDataAtom)
   const [selectedYear] = useAtom<string>(selectedYearAtom)
-  const [flightData, setFlightData] = useState(allData)
+  const [flightData, setFlightData] = useState<FlightData>()
 
   const [time, setTime] = useState("")
   const [stats, setStats] = useState<Stats>()
@@ -30,24 +31,37 @@ export default function Home() {
   const user = useUserSession(null)
 
   useEffect(() => {
-    fetchTimeSpent(flightData).then(setTime)
-    calculateStats(flightData).then(setStats)
-    calculateDistance(flightData).then(setDistance)
+    if (flightData) {
+      fetchTimeSpent(flightData).then(setTime)
+      calculateStats(flightData).then(setStats)
+      calculateDistance(flightData).then(setDistance)
+    }
   }, [flightData])
 
   useEffect(() => {
-    if (selectedYear === ALL_FLIGHTS) {
-      setFlightData(allData)
-    } else {
-      const filteredFlights = allData.flights.filter((el) => {
-        const d = DateTime.fromFormat(el.departureDate, "dd-MM-yyyy HH:mm")
-        return !d.invalidReason && d.year === +selectedYear
-      })
-      setFlightData({
-        flights: filteredFlights
+    if (user?.uid) {
+      getFlights(user.uid).then((d) => {
+        setAllData(d)
+        setFlightData(d)
       })
     }
-  }, [selectedYear])
+  }, [user])
+
+  useEffect(() => {
+    if (allData) {
+      if (selectedYear === ALL_FLIGHTS) {
+        setFlightData(allData)
+      } else {
+        const filteredFlights = allData.flights.filter((el) => {
+          const d = DateTime.fromFormat(el.departureDate, "dd-MM-yyyy HH:mm")
+          return !d.invalidReason && d.year === +selectedYear
+        })
+        setFlightData({
+          flights: filteredFlights
+        })
+      }
+    }
+  }, [selectedYear, allData])
 
   if (!user) {
     return null

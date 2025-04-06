@@ -2,11 +2,11 @@
 
 import { Flight, FlightData } from "@/lib/types/flight-data-types";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../ui/pagination";
+import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from "../ui/pagination";
 import { useEffect, useState } from "react";
 
 type Props = {
-  data: FlightData
+  data?: FlightData
 }
 
 export const FlightsTable: React.FC<Props> = ({ data }: Props) => {
@@ -15,8 +15,12 @@ export const FlightsTable: React.FC<Props> = ({ data }: Props) => {
   const [offset, setOffset] = useState(0)
 
   useEffect(() => {
-    setFilteredData(data.flights.slice(offset, offset + pageSize))
+    if (data?.flights) {
+      setFilteredData(data.flights.slice(offset, offset + pageSize))
+    }
   }, [data, offset, pageSize]);
+
+  if (!data?.flights) return
 
   return (
     <Table>

@@ -5,11 +5,12 @@ import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { FlightDataService } from "@/lib/services/flight-data-service";
 import { useAtom } from "jotai";
-import { selectedYearAtom } from "@/lib/atoms";
+import { flightDataAtom, selectedYearAtom } from "@/lib/atoms";
 import { ALL_FLIGHTS } from "@/lib/constants";
 import { signInWithGoogle, signOut } from "@/lib/firebase/auth";
 import { User } from "firebase/auth";
 import { useUserSession } from "@/lib/user-session";
+import { FlightData } from "@/lib/types/flight-data-types";
 
 type Props = {
   initialUser: User | null | undefined
@@ -18,7 +19,8 @@ type Props = {
 export const TopBar: React.FC<Props> = ({ initialUser }) => {
   const user = useUserSession(initialUser)
   const [selectedYear, setSelectedYear] = useAtom<string>(selectedYearAtom)
-  const years = FlightDataService.getYears()
+  const [flightData] = useAtom<FlightData>(flightDataAtom)
+  const years = FlightDataService.getYears(flightData)
 
   const handleSignOut = (event: any) => {
     event.preventDefault()
