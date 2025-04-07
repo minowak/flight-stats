@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import { AirportPicker } from "../custom/airport-picker";
 import { AirportBadge } from "../custom/airport-badge";
 import { DatePicker } from "../custom/date-picker";
-import { formatDate, formatTime, parseDateTime } from "@/lib/utils";
+import { formatDate, formatTime } from "@/lib/utils";
 
 type Props = {} & PropsWithChildren
 
@@ -17,8 +17,17 @@ export const AddFlightDialog: React.FC<Props> = ({ children }) => {
   const [departureDate, setDepartureDate] = useState<Date>()
   const [arrivalDate, setArrivalDate] = useState<Date>()
 
+  const [open, setOpen] = useState(false)
+
+  const canSave = origin && destination && departureDate && arrivalDate
+
+  const addNewFlight = () => {
+    setOpen(false);
+    console.log("TODO");
+  }
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -83,13 +92,13 @@ export const AddFlightDialog: React.FC<Props> = ({ children }) => {
           </div>
         </div>
         <DialogFooter>
-          <Button size="sm">
+          <Button size="sm" disabled={!canSave} onClick={addNewFlight}>
             <div className="flex items-center gap-2">
               <SaveIcon />
               Save
             </div>
           </Button>
-          <Button variant="destructive" size="sm">
+          <Button variant="destructive" size="sm" onClick={() => setOpen(false)}>
             <div className="flex items-center gap-2">
               <XIcon />
               Cancel
