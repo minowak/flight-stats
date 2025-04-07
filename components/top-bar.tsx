@@ -1,6 +1,6 @@
 "use client";
 
-import { PlaneIcon, PlusIcon } from "lucide-react";
+import { LogOutIcon, PlaneIcon, PlusIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { FlightDataService } from "@/lib/services/flight-data-service";
@@ -12,6 +12,8 @@ import { User } from "firebase/auth";
 import { useUserSession } from "@/lib/user-session";
 import { FlightData } from "@/lib/types/flight-data-types";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { AddFlightDialog } from "./dialogs/add-flight-dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 type Props = {
   initialUser: User | null | undefined
@@ -31,6 +33,22 @@ export const TopBar: React.FC<Props> = ({ initialUser }) => {
   const handleSignIn = (event: any) => {
     event.preventDefault()
     signInWithGoogle()
+  }
+
+  const shortName = (name: string | null) => {
+    if (!name) {
+      return "U"
+    }
+    const split = name.split(" ")
+    let result = ""
+
+    for (let s of split) {
+      if (s) {
+        result += s[0].toUpperCase()
+      }
+    }
+
+    return result
   }
 
   return (
@@ -61,21 +79,28 @@ export const TopBar: React.FC<Props> = ({ initialUser }) => {
         <div className="flex items-center gap-4">
           {user ? (
             <>
-              <Button size="sm">
-                <div className="flex gap-2 items-center">
-                  <PlusIcon />
-                  <div>Add</div>
-                </div>
-              </Button>
+              <AddFlightDialog>
+                <Button size="sm">
+                  <div className="flex gap-2 items-center">
+                    <PlusIcon />
+                    <div>Add</div>
+                  </div>
+                </Button>
+              </AddFlightDialog>
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                  <div className="outline-none cursor-pointer size-10 rounded-full overflow-hidden border-primary border-[3px]">
-                    {user.photoURL &&
-                      <img src={user.photoURL} />}
-                  </div>
+                  <Avatar className="cursor-pointer">
+                    <AvatarImage src={user.photoURL || ""} />
+                    <AvatarFallback>{shortName(user.displayName)}</AvatarFallback>
+                  </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem onClick={handleSignOut}>Log out</DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <div className="flex gap-2 items-center">
+                      <LogOutIcon />
+                      Log out
+                    </div>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </>

@@ -5,4 +5,8 @@ export const AirportCodesService = {
   getByIata: (iata: string): AirportData => {
     return airportData.find((el) => el.iata === iata) as AirportData
   },
+
+  getAll: (): AirportData[] => {
+    return airportData.filter((el) => el.iata)
+  }
 }
