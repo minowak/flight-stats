@@ -8,7 +8,7 @@ import { StatsCard } from "@/components/stats/stats-card";
 import { FlightsChart } from "@/components/stats/flights-chart";
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
-import { flightDataAtom, selectedYearAtom } from "@/lib/atoms";
+import { selectedYearAtom } from "@/lib/atoms";
 import { DateTime } from "luxon";
 import { ALL_FLIGHTS } from "@/lib/constants";
 import { ClockIcon, EarthIcon, MapIcon, MoonStarIcon, PlaneTakeoffIcon, SplineIcon, TableIcon, TowerControlIcon } from "lucide-react";
@@ -17,10 +17,10 @@ import { useUserSession } from "@/lib/user-session";
 import { Stats } from "@/lib/types/stats-types";
 import { calculateDistance, calculateStats, fetchTimeSpent } from "@/lib/actions/stats-actions";
 import { FlightData } from "@/lib/types/flight-data-types";
-import { getFlights } from "@/lib/firebase/firestore";
+import { useFlightData } from "@/lib/hooks/useFlightData";
 
 export default function Home() {
-  const [flightData, setFlightData] = useAtom<FlightData>(flightDataAtom)
+  const [flightData] = useFlightData()
   const [selectedYear] = useAtom<string>(selectedYearAtom)
   const [filteredData, setFilteredData] = useState<FlightData>()
 
@@ -39,13 +39,8 @@ export default function Home() {
   }, [filteredData])
 
   useEffect(() => {
-    if (user?.uid) {
-      getFlights(user.uid).then((d) => {
-        setFlightData(d)
-        setFilteredData(d)
-      })
-    }
-  }, [user])
+    setFilteredData(flightData)
+  }, [flightData])
 
   useEffect(() => {
     if (flightData) {

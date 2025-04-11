@@ -10,10 +10,10 @@ import { ALL_FLIGHTS } from "@/lib/constants";
 import { signInWithGoogle, signOut } from "@/lib/firebase/auth";
 import { User } from "firebase/auth";
 import { useUserSession } from "@/lib/user-session";
-import { FlightData } from "@/lib/types/flight-data-types";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { AddFlightDialog } from "./dialogs/add-flight-dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useFlightData } from "@/lib/hooks/useFlightData";
 
 type Props = {
   initialUser: User | null | undefined
@@ -22,7 +22,7 @@ type Props = {
 export const TopBar: React.FC<Props> = ({ initialUser }) => {
   const user = useUserSession(initialUser)
   const [selectedYear, setSelectedYear] = useAtom<string>(selectedYearAtom)
-  const [flightData] = useAtom<FlightData>(flightDataAtom)
+  const [flightData] = useFlightData()
   const years = FlightDataService.getYears(flightData)
 
   const handleSignOut = (event: any) => {

@@ -12,11 +12,13 @@ import { toast } from "sonner";
 import { addFlight } from "@/lib/firebase/firestore";
 import { useUserSession } from "@/lib/user-session";
 import { Input } from "../ui/input";
+import { useFlightData } from "@/lib/hooks/useFlightData";
 
 type Props = {} & PropsWithChildren
 
 export const AddFlightDialog: React.FC<Props> = ({ children }) => {
   const user = useUserSession(null)
+  const [_, refresh] = useFlightData()
 
   const [origin, setOrigin] = useState("")
   const [destination, setDestination] = useState("")
@@ -38,6 +40,7 @@ export const AddFlightDialog: React.FC<Props> = ({ children }) => {
         arrivalAirport: destination,
         flightNumber: flightNumber
       }).then(() => {
+        refresh()
         toast.success("Flight has been added",);
       }).catch(() => {
         toast.error("Error")
