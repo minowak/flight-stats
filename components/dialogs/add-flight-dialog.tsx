@@ -43,7 +43,7 @@ export const AddFlightDialog: React.FC<Props> = ({ children }) => {
         refresh()
         toast.success("Flight has been added",);
       }).catch(() => {
-        toast.error("Error")
+        toast.error("Error while adding flight")
       })
     }
   }

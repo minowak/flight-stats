@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs, query } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, query } from "firebase/firestore";
 import { db } from "./clientApp";
 import { Flight, FlightData } from "../types/flight-data-types";
 import { useAtom } from "jotai";
@@ -29,6 +29,7 @@ export async function getFlights(user: User | null | undefined) {
   const results = await getDocs(q)
   const data = results.docs.map(doc => {
     return {
+      id: doc.id,
       ...doc.data()
     }
   })
@@ -42,5 +43,5 @@ export async function addFlight(userId: string, flight: Flight) {
 }
 
 export async function removeFlight(userId: string, id: string) {
-  console.log("TODO");
+  return deleteDoc(doc(db, "users", userId, "flights", id))
 }

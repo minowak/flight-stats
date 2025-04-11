@@ -1,4 +1,5 @@
 export type Flight = {
+  id?: string;
   departureDate: string;
   arrivalDate: string;
   departureAirport: string;
