@@ -1,6 +1,6 @@
 import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { db } from "./clientApp";
-import { FlightData } from "../types/flight-data-types";
+import { Flight, FlightData } from "../types/flight-data-types";
 import { useAtom } from "jotai";
 import { flightDataAtom } from "../atoms";
 
@@ -30,4 +30,13 @@ export async function getFlights(userId: string) {
   })
 
   return { flights: data } as FlightData
+}
+
+export async function addFlight(userId: string, flight: Flight) {
+  const collectionRef = collection(db, "users", userId, "flights")
+  return addDoc(collectionRef, flight)
+}
+
+export async function removeFlight(userId: string, id: string) {
+  console.log("TODO");
 }

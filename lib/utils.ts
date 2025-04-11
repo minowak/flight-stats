@@ -17,6 +17,10 @@ export function formatDate(date: Date) {
   return DateTime.fromJSDate(date).toFormat("dd-MM-yyyy")
 }
 
+export function formatDateFirestore(date: Date) {
+  return DateTime.fromJSDate(date).toFormat("dd-MM-yyyy HH:mm")
+}
+
 export function formatTime(date: Date) {
   return DateTime.fromJSDate(date).toFormat("HH:mm")
 }

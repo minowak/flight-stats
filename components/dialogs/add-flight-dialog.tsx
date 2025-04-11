@@ -7,23 +7,42 @@ import { Button } from "../ui/button";
 import { AirportPicker } from "../custom/airport-picker";
 import { AirportBadge } from "../custom/airport-badge";
 import { DatePicker } from "../custom/date-picker";
-import { formatDate, formatTime } from "@/lib/utils";
+import { formatDate, formatDateFirestore, formatTime } from "@/lib/utils";
+import { toast } from "sonner";
+import { addFlight } from "@/lib/firebase/firestore";
+import { useUserSession } from "@/lib/user-session";
+import { Input } from "../ui/input";
 
 type Props = {} & PropsWithChildren
 
 export const AddFlightDialog: React.FC<Props> = ({ children }) => {
+  const user = useUserSession(null)
+
   const [origin, setOrigin] = useState("")
   const [destination, setDestination] = useState("")
   const [departureDate, setDepartureDate] = useState<Date>()
   const [arrivalDate, setArrivalDate] = useState<Date>()
+  const [flightNumber, setFlightNumber] = useState("")
 
   const [open, setOpen] = useState(false)
 
-  const canSave = origin && destination && departureDate && arrivalDate
+  const canSave = origin && destination && departureDate && arrivalDate && flightNumber
 
   const addNewFlight = () => {
     setOpen(false);
-    console.log("TODO");
+    if (user && departureDate && arrivalDate) {
+      addFlight(user?.uid, {
+        departureDate: formatDateFirestore(departureDate),
+        arrivalDate: formatDateFirestore(arrivalDate),
+        departureAirport: origin,
+        arrivalAirport: destination,
+        flightNumber: flightNumber
+      }).then(() => {
+        toast.success("Flight has been added",);
+      }).catch(() => {
+        toast.error("Error")
+      })
+    }
   }
 
   return (
@@ -89,6 +108,10 @@ export const AddFlightDialog: React.FC<Props> = ({ children }) => {
               <span className="font-semibold text-sm">Arrival</span>
               <DatePicker date={arrivalDate} setDate={setArrivalDate} />
             </div>
+          </div>
+          <div>
+            <span className="font-semibold text-sm">Flight number</span>
+            <Input value={flightNumber} onChange={(e) => setFlightNumber(e.target.value)} />
           </div>
         </div>
         <DialogFooter>

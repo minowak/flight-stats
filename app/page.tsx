@@ -20,9 +20,9 @@ import { FlightData } from "@/lib/types/flight-data-types";
 import { getFlights } from "@/lib/firebase/firestore";
 
 export default function Home() {
-  const [allData, setAllData] = useAtom<FlightData>(flightDataAtom)
+  const [flightData, setFlightData] = useAtom<FlightData>(flightDataAtom)
   const [selectedYear] = useAtom<string>(selectedYearAtom)
-  const [flightData, setFlightData] = useState<FlightData>()
+  const [filteredData, setFilteredData] = useState<FlightData>()
 
   const [time, setTime] = useState("")
   const [stats, setStats] = useState<Stats>()
@@ -31,37 +31,37 @@ export default function Home() {
   const user = useUserSession(null)
 
   useEffect(() => {
-    if (flightData) {
-      fetchTimeSpent(flightData).then(setTime)
-      calculateStats(flightData).then(setStats)
-      calculateDistance(flightData).then(setDistance)
+    if (filteredData) {
+      fetchTimeSpent(filteredData).then(setTime)
+      calculateStats(filteredData).then(setStats)
+      calculateDistance(filteredData).then(setDistance)
     }
-  }, [flightData])
+  }, [filteredData])
 
   useEffect(() => {
     if (user?.uid) {
       getFlights(user.uid).then((d) => {
-        setAllData(d)
         setFlightData(d)
+        setFilteredData(d)
       })
     }
   }, [user])
 
   useEffect(() => {
-    if (allData) {
+    if (flightData) {
       if (selectedYear === ALL_FLIGHTS) {
-        setFlightData(allData)
+        setFilteredData(flightData)
       } else {
-        const filteredFlights = allData.flights.filter((el) => {
+        const filteredFlights = flightData.flights.filter((el) => {
           const d = DateTime.fromFormat(el.departureDate, "dd-MM-yyyy HH:mm")
           return !d.invalidReason && d.year === +selectedYear
         })
-        setFlightData({
+        setFilteredData({
           flights: filteredFlights
         })
       }
     }
-  }, [selectedYear, allData])
+  }, [selectedYear, flightData])
 
   if (!user) {
     return null
@@ -88,13 +88,13 @@ export default function Home() {
           </StatsCard>
         </div>
         <StatsCard title="Flights" icon={<PlaneTakeoffIcon />}>
-          <FlightsChart data={flightData} />
+          <FlightsChart data={filteredData} />
         </StatsCard>
         <StatsCard title="Map" icon={<MapIcon />}>
           <FlightMapWrapper />
         </StatsCard>
         <StatsCard title="Flights list" icon={<TableIcon />}>
-          <FlightsTable data={flightData} />
+          <FlightsTable data={filteredData} />
         </StatsCard>
       </div>
     </div>
