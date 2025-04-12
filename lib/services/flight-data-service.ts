@@ -6,10 +6,10 @@ export const FlightDataService = {
   getYears: (data: FlightData): Record<string, number> => {
     if (!data?.flights) return {}
 
-    let result: Record<string, number> = { [ALL_FLIGHTS]: data.flights.length }
+    const result: Record<string, number> = { [ALL_FLIGHTS]: data.flights.length }
 
     let prev = 0
-    for (let flight of data.flights) {
+    for (const flight of data.flights) {
       const d = parseDateTime(flight.departureDate)
       if (d.invalidReason) {
         continue

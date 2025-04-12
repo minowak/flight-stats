@@ -33,7 +33,7 @@ export function useUserSession(initialUser: User | null | undefined) {
         router.refresh()
       }
     })
-  }, [user])
+  }, [user, router])
 
   return user
 }

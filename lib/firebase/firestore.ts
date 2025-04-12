@@ -1,25 +1,7 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, query } from "firebase/firestore";
 import { db } from "./clientApp";
-import { Flight, FlightData } from "../types/flight-data-types";
-import { useAtom } from "jotai";
-import { flightDataAtom } from "../atoms";
+import { Flight } from "../types/flight-data-types";
 import { User } from "firebase/auth";
-
-
-export async function addFlights(userId: string) {
-  const [allData] = useAtom<FlightData>(flightDataAtom)
-
-  try {
-    for (let flight of allData.flights) {
-      await addDoc(
-        collection(db, "users", userId, "flights"),
-        flight
-      )
-    }
-  } catch (e) {
-    console.log("Error adding document: ", e)
-  }
-}
 
 export async function getFlights(user: User | null | undefined) {
   if (!user) return

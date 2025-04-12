@@ -1,6 +1,6 @@
 import { AirportCodesService } from "@/lib/services/airport-codes-service";
 import { Input } from "../ui/input";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type DataType = {
   value: string;
@@ -17,9 +17,9 @@ export const AirportPicker: React.FC<Props> = ({ onValueChange }) => {
   const [filteredData, setFilteredData] = useState<DataType[]>([])
 
   const airportData = AirportCodesService.getAll()
-  let data: DataType[] = []
+  const data: DataType[] = useMemo(() => [], [])
 
-  for (let airport of airportData) {
+  for (const airport of airportData) {
     data.push({
       label: airport.airport,
       value: airport.iata
@@ -35,7 +35,7 @@ export const AirportPicker: React.FC<Props> = ({ onValueChange }) => {
     const f = data.filter((el) => el.label.toUpperCase().includes(search.toUpperCase())
       || el.value.toUpperCase().includes(search.toUpperCase()))
     setFilteredData(f)
-  }, [search])
+  }, [search, data])
 
   return (
     <div className="relative">

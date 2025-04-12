@@ -12,7 +12,7 @@ type Props = {
 export const TopAirportChart: React.FC<Props> = ({ data, top }: Props) => {
   if (!data) return
 
-  let chartData = Object.values(data).toSorted((a, b) => b.count - a.count).slice(0, top || 10)
+  const chartData = Object.values(data).toSorted((a, b) => b.count - a.count).slice(0, top || 10)
   const chartConfig = {
     desktop: {
       label: "Count",

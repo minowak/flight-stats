@@ -29,8 +29,8 @@ export async function calculateStats(data: FlightData): Promise<Stats> {
   const countryStats: CountryStats = {}
 
   if (data?.flights) {
-    for (let flight of data.flights) {
-      for (let airport of [flight.departureAirport, flight.arrivalAirport]) {
+    for (const flight of data.flights) {
+      for (const airport of [flight.departureAirport, flight.arrivalAirport]) {
         const airportData = AirportCodesService.getByIata(airport)
 
         if (!airportStats[airport]) {
@@ -57,7 +57,7 @@ export async function calculateStats(data: FlightData): Promise<Stats> {
 export async function calculateDistance(data: FlightData) {
   let total = 0
   if (data?.flights) {
-    for (let flight of data.flights) {
+    for (const flight of data.flights) {
       const origin = AirportCodesService.getByIata(flight.departureAirport)
       const destination = AirportCodesService.getByIata(flight.arrivalAirport)
 
@@ -78,7 +78,7 @@ export async function fetchTimeSpent(data: FlightData) {
   let result = Duration.fromMillis(0)
 
   if (data?.flights) {
-    for (let flight of data.flights) {
+    for (const flight of data.flights) {
       const origin = AirportCodesService.getByIata(flight.departureAirport)
       const destination = AirportCodesService.getByIata(flight.arrivalAirport)
       try {

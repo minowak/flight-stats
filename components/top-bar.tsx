@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { FlightDataService } from "@/lib/services/flight-data-service";
 import { useAtom } from "jotai";
-import { flightDataAtom, selectedYearAtom } from "@/lib/atoms";
+import { selectedYearAtom } from "@/lib/atoms";
 import { ALL_FLIGHTS } from "@/lib/constants";
 import { signInWithGoogle, signOut } from "@/lib/firebase/auth";
 import { User } from "firebase/auth";
@@ -14,6 +14,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { AddFlightDialog } from "./dialogs/add-flight-dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useFlightData } from "@/lib/hooks/useFlightData";
+import { MouseEventHandler } from "react";
 
 type Props = {
   initialUser: User | null | undefined
@@ -25,12 +26,12 @@ export const TopBar: React.FC<Props> = ({ initialUser }) => {
   const [flightData] = useFlightData()
   const years = FlightDataService.getYears(flightData)
 
-  const handleSignOut = (event: any) => {
+  const handleSignOut: MouseEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault()
     signOut()
   }
 
-  const handleSignIn = (event: any) => {
+  const handleSignIn: MouseEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault()
     signInWithGoogle()
   }
@@ -42,7 +43,7 @@ export const TopBar: React.FC<Props> = ({ initialUser }) => {
     const split = name.split(" ")
     let result = ""
 
-    for (let s of split) {
+    for (const s of split) {
       if (s) {
         result += s[0].toUpperCase()
       }

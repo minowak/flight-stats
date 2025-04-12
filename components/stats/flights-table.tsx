@@ -31,7 +31,7 @@ export const FlightsTable: React.FC<Props> = ({ data: flightData }: Props) => {
 
   const user = useUserSession(null)
 
-  const sortData = () => {
+  const sortData = useCallback(() => {
     let sorted = flightData?.flights
     if (sortBy && order) {
       sorted = flightData?.flights.slice().sort((a, b) => {
@@ -76,11 +76,11 @@ export const FlightsTable: React.FC<Props> = ({ data: flightData }: Props) => {
         setFilteredData(filtered)
       }
     }
-  }
+  }, [flightData?.flights, order, searchTerm, sortBy])
 
   useEffect(() => {
     sortData()
-  }, [order, sortBy, searchTerm])
+  }, [order, sortBy, searchTerm, sortData])
 
   if (!flightData?.flights) return
 

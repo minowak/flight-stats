@@ -2,7 +2,7 @@
 
 import { FlightData } from "@/lib/types/flight-data-types";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "../ui/chart";
-import { Area, AreaChart, Line, LineChart, XAxis } from "recharts";
+import { Area, AreaChart, XAxis } from "recharts";
 import { parseDateTime } from "@/lib/utils";
 import { useAtom } from "jotai";
 import { selectedYearAtom } from "@/lib/atoms";
@@ -18,9 +18,9 @@ type ChartDataPoint = {
 }
 
 const getChartPoints = (data: FlightData, selectedYear: string) => {
-  let chartData: Record<string, ChartDataPoint> = {}
+  const chartData: Record<string, ChartDataPoint> = {}
   let prev = 0
-  for (let flight of data.flights) {
+  for (const flight of data.flights) {
     const d = parseDateTime(flight.departureDate)
     if (d.invalidReason) {
       continue
