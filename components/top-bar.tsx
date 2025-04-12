@@ -31,7 +31,7 @@ export const TopBar: React.FC<Props> = ({ initialUser }) => {
     signOut()
   }
 
-  const handleSignIn: MouseEventHandler<HTMLDivElement> = (event) => {
+  const handleSignIn: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault()
     signInWithGoogle()
   }
