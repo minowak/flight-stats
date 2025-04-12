@@ -8,20 +8,26 @@
     ],
     "rewrites": [
       {
+        "region": "europe-west1",
         "source": "**",
         "function": "nextApp"
       }
     ]
   },
-  "functions": {
-    "source": "functions",
-    "ignore": [
-      ".firebase/**",
-      ".firebaserc",
-      "firebase.json",
-      "**/node_modules/**",
-      "**/public/**",
-      "**/cache/**"
-    ]
-  }
+  "functions": [
+    {
+      "source": "functions",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "codebase": "default",
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ]
 }
