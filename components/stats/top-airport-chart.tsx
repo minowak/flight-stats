@@ -22,18 +22,20 @@ export const TopAirportChart: React.FC<Props> = ({ data, top }: Props) => {
 
   return (
     <div>
-      <ChartContainer config={chartConfig} className="min-h-[200px] max-h-[400px] w-full">
-        <BarChart data={chartData}>
-          <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="count" fill="var(--color-desktop)" radius={4} />
-          <XAxis
-            dataKey="data.iata"
-            tickLine={false}
-            tickMargin={10}
-            axisLine={false}
-          />
-        </BarChart>
-      </ChartContainer>
+      {chartData.length === 0 ? <div className="text-center text-muted-foreground italic">No flights</div> :
+        <ChartContainer config={chartConfig} className="min-h-[200px] max-h-[400px] w-full">
+          <BarChart data={chartData}>
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <Bar dataKey="count" fill="var(--color-desktop)" radius={4} />
+            <XAxis
+              dataKey="data.iata"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+            />
+          </BarChart>
+        </ChartContainer>
+      }
     </div>
   );
 }

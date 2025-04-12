@@ -21,7 +21,7 @@ export const StatsCard: React.FC<Props> = ({ title, icon, value, loading, childr
       <CardContent>
         {loading ? <div className="flex justify-center"><Spinner className="size-8" /></div> :
           <>
-            {value && <div className="text-3xl">{value}</div>}
+            {value && <div className="text-3xl">{"" + value}</div>}
             {children}
           </>}
       </CardContent>

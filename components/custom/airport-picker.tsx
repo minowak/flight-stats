@@ -17,7 +17,7 @@ export const AirportPicker: React.FC<Props> = ({ onValueChange }) => {
   const [filteredData, setFilteredData] = useState<DataType[]>([])
 
   const airportData = AirportCodesService.getAll()
-  const data: DataType[] = useMemo(() => [], [])
+  const data: DataType[] = []
 
   for (const airport of airportData) {
     data.push({
@@ -35,7 +35,7 @@ export const AirportPicker: React.FC<Props> = ({ onValueChange }) => {
     const f = data.filter((el) => el.label.toUpperCase().includes(search.toUpperCase())
       || el.value.toUpperCase().includes(search.toUpperCase()))
     setFilteredData(f)
-  }, [search, data])
+  }, [search])
 
   return (
     <div className="relative">
