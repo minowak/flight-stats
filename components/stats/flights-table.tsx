@@ -68,13 +68,13 @@ export const FlightsTable: React.FC<Props> = ({ data: flightData }: Props) => {
         }
         return 0
       })
-      const filtered = sorted?.filter((fl) => {
-        const toSearch = `${fl.departureAirport} ${fl.arrivalAirport} ${fl.flightNumber}`.toLowerCase()
-        return toSearch.includes(searchTerm.toLowerCase())
-      })
-      if (filtered) {
-        setFilteredData(filtered)
-      }
+    }
+    const filtered = sorted?.filter((fl) => {
+      const toSearch = `${fl.departureAirport} ${fl.arrivalAirport} ${fl.flightNumber}`.toLowerCase()
+      return toSearch.includes(searchTerm.toLowerCase())
+    })
+    if (filtered) {
+      setFilteredData(filtered)
     }
   }, [flightData?.flights, order, searchTerm, sortBy])
 
