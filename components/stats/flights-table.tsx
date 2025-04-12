@@ -23,7 +23,7 @@ export const FlightsTable: React.FC<Props> = ({ data: flightData }: Props) => {
   const pageSize = 10
   const [filteredData, setFilteredData] = useState<Flight[]>(flightData?.flights || [])
   const [offset, setOffset] = useState(0)
-  const [_, refresh] = useFlightData()
+  const [, refresh] = useFlightData()
 
   const [sortBy, setSortBy] = useState<string | undefined>()
   const [order, setOrder] = useState<SortOrder | undefined>()

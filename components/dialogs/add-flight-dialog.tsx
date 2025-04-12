@@ -18,7 +18,7 @@ type Props = {} & PropsWithChildren
 
 export const AddFlightDialog: React.FC<Props> = ({ children }) => {
   const user = useUserSession(null)
-  const [_, refresh] = useFlightData()
+  const [, refresh] = useFlightData()
 
   const [origin, setOrigin] = useState("")
   const [destination, setDestination] = useState("")

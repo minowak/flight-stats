@@ -1,6 +1,6 @@
 import { AirportCodesService } from "@/lib/services/airport-codes-service";
 import { Input } from "../ui/input";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 type DataType = {
   value: string;
