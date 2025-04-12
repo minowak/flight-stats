@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Flight Stats",
+  title: "Sky Log",
   description: "Track your flights",
 };
 
