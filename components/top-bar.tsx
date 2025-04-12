@@ -59,7 +59,7 @@ export const TopBar: React.FC<Props> = ({ initialUser }) => {
           <div className="flex items-center gap-2">
             <PlaneIcon />
             <div className="font-bold text-md">
-              Flight Stats
+              Sky Log
             </div>
           </div>
           {user && flightData?.flights && (
