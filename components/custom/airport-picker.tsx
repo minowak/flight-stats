@@ -38,9 +38,9 @@ export const AirportPicker: React.FC<Props> = ({ onValueChange }) => {
   }, [search])
 
   return (
-    <div className="relative">
+    <div className="relative min-w-0 w-full">
       <Input
-        className="w-full justify-between"
+        className="w-full justify-between min-w-0"
         value={search}
         onChange={(s) => {
           const val = s.target.value

@@ -39,7 +39,7 @@ export function DatePicker({ date, setDate }: Props) {
         <Button
           variant={"outline"}
           className={cn(
-            "w-[280px] justify-start text-left font-normal",
+            "w-full sm:w-[280px] justify-start text-left font-normal",
             !date && "text-muted-foreground"
           )}
         >
@@ -47,7 +47,7 @@ export function DatePicker({ date, setDate }: Props) {
           {date ? format(date, "PPP") : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0 flex relative">
+      <PopoverContent className="w-auto p-0 sm:flex relative z-[9999]">
         <Calendar
           mode="single"
           selected={date}

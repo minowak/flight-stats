@@ -102,13 +102,13 @@ export const AddFlightDialog: React.FC<Props> = ({ children }) => {
               <AirportPicker onValueChange={setDestination} />
             </div>
           }
-          <div className="flex justify-between items-center gap-2">
+          <div className="sm:flex sm:justify-between sm:items-center space-y-4 sm:space-y-0 sm:gap-2">
             <div>
-              <span className="font-semibold text-sm">Departure</span>
+              <div className="font-semibold text-sm">Departure</div>
               <DatePicker date={departureDate} setDate={setDepartureDate} />
             </div>
             <div>
-              <span className="font-semibold text-sm">Arrival</span>
+              <div className="font-semibold text-sm">Arrival</div>
               <DatePicker date={arrivalDate} setDate={setArrivalDate} />
             </div>
           </div>
