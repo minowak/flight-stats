@@ -22,7 +22,9 @@ export const FlightDataService = {
 
       if (prev > 0) {
         for (let i = prev + 1; i < d.year; i++) {
-          result["" + i] = 0
+          if (!result["" + i]) {
+            result["" + i] = 0
+          }
         }
       }
       prev = d.year

@@ -52,6 +52,8 @@ export const TopBar: React.FC<Props> = ({ initialUser }) => {
     return result
   }
 
+  console.log(flightData)
+
   return (
     <menu className="p-4 border-b fixed top-0 left-0 right-0 bg-background/30 backdrop-blur-md z-[9998]">
       <div className="flex gap-4 justify-between items-center">

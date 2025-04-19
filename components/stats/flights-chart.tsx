@@ -38,9 +38,11 @@ const getChartPoints = (data: FlightData, selectedYear: string) => {
 
     if (prev > 0) {
       for (let i = prev + 1; i < d.year; i++) {
-        chartData["" + i] = {
-          label: "" + i,
-          count: 0
+        if (!chartData["" + i]) {
+          chartData["" + i] = {
+            label: "" + i,
+            count: 0
+          }
         }
       }
     }
