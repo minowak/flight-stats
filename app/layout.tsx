@@ -44,14 +44,14 @@ export default async function RootLayout({
               {children}
             </main>
             <Toaster />
+            <footer className="text-sm text-muted-foreground py-8 flex items-center justify-center">
+              <div className="max-w-[500px]">
+                <p>2025 SkyLog - by Michal Nowak</p>
+                <p>Crafted with ☁️ and ❤️ for sky enthusiasts.</p>
+                <div className="mt-4 flex items-center gap-2"><GithubIcon /> <a href="https://github.com/minowak/flight-stats">Repo</a> </div>
+              </div>
+            </footer>
           </ScrollArea>
-          <footer className="text-sm text-muted-foreground py-8 flex items-center justify-center">
-            <div className="max-w-[500px]">
-              <p>2025 SkyLog - by Michal Nowak</p>
-              <p>Crafted with ☁️ and ❤️ for sky enthusiasts.</p>
-              <div className="mt-4 flex items-center gap-2"><GithubIcon /> <a href="https://github.com/minowak/flight-stats">Repo</a> </div>
-            </div>
-          </footer>
         </div>
       </body>
     </html>
