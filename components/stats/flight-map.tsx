@@ -31,7 +31,7 @@ const GeodesicComponent = () => {
     let points: LatLng[] = []
 
     let prevDestination = "";
-    for (const flight of flightData.flights) {
+    for (const flight of flightData?.flights) {
       const origin = AirportCodesService.getByIata(flight.departureAirport)
       const destination = AirportCodesService.getByIata(flight.arrivalAirport)
 

@@ -11,14 +11,14 @@ type Props = {
 
 export const StatsCard: React.FC<Props> = ({ title, icon, value, loading, children }: Props) => {
   return (
-    <Card>
+    <Card className="min-w-0">
       <CardHeader>
         <CardTitle className="font-bold text-xs flex gap-4 items-center">
           {icon ? <>{icon}</> : ""}
           {title}
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="min-w-0">
         {loading ? <div className="flex justify-center"><Spinner className="size-8" /></div> :
           <>
             {value && <div className="text-3xl">{"" + value}</div>}

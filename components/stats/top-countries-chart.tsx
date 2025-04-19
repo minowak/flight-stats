@@ -21,7 +21,7 @@ export const TopCountriesChart: React.FC<Props> = ({ data, top }: Props) => {
   } satisfies ChartConfig
 
   return (
-    <div>
+    <div className="min-w-0">
       {chartData.length === 0 ? <div className="text-center text-muted-foreground italic">No flights</div> :
         <ChartContainer config={chartConfig} className="min-h-[200px] max-h-[400px] w-full">
           <BarChart data={chartData}>

@@ -64,9 +64,9 @@ export const FlightsChart: React.FC<Props> = ({ data }: Props) => {
   } satisfies ChartConfig
 
   return (
-    <div>
+    <div className="min-w-0">
       {Object.keys(chartData).length === 0 ? <div className="text-center text-muted-foreground italic">No flights</div> :
-        <ChartContainer config={chartConfig} className="min-h-[200px] max-h-[400px] w-full">
+        <ChartContainer config={chartConfig} className="min-h-[150px] max-h-[400px] w-full">
           <AreaChart data={Object.values(chartData)}>
             <ChartTooltip content={<ChartTooltipContent />} />
             <Area dataKey="count" fill="var(--color-desktop)" radius={4} fillOpacity={0.03} />

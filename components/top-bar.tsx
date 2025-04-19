@@ -56,7 +56,7 @@ export const TopBar: React.FC<Props> = ({ initialUser }) => {
     <menu className="p-4 border-b fixed top-0 left-0 right-0 bg-background/30 backdrop-blur-md z-[9998]">
       <div className="flex gap-4 justify-between items-center">
         <div className="flex items-center gap-8">
-          <div className="flex items-center gap-2">
+          <div className="items-center gap-2 hidden sm:flex">
             <PlaneIcon />
             <div className="font-bold text-md">
               Sky Log
@@ -65,7 +65,7 @@ export const TopBar: React.FC<Props> = ({ initialUser }) => {
           {user && flightData?.flights && (
             <div>
               <Select value={selectedYear} defaultValue={ALL_FLIGHTS} onValueChange={setSelectedYear}>
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="text-xs md:text-sm w-[180px]">
                   <SelectValue placeholder="Year" />
                 </SelectTrigger>
                 <SelectContent className="z-[9999]">
@@ -83,8 +83,7 @@ export const TopBar: React.FC<Props> = ({ initialUser }) => {
               <AddFlightDialog>
                 <Button size="sm">
                   <div className="flex gap-2 items-center">
-                    <PlusIcon />
-                    <div>Add</div>
+                    <PlusIcon strokeWidth={2} />
                   </div>
                 </Button>
               </AddFlightDialog>

@@ -1,9 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, getIdToken } from "firebase/auth";
 import { getInstallations, getToken } from "firebase/installations";
+import { firebaseConfig as staticConfig } from "@/lib/firebase/config";
 
 // this is set during install
-let firebaseConfig;
+let firebaseConfig = staticConfig;
 
 self.addEventListener('install', event => {
   // extract firebase config from query string
