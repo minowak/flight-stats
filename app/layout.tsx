@@ -6,6 +6,7 @@ import { getAuthenticatedAppForUser } from "@/lib/firebase/serverApp";
 import { User } from "firebase/auth";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Toaster } from "@/components/ui/sonner";
+import { GithubIcon } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -44,6 +45,13 @@ export default async function RootLayout({
             </main>
             <Toaster />
           </ScrollArea>
+          <footer className="text-sm text-muted-foreground py-8 flex items-center justify-center">
+            <div className="max-w-[500px]">
+              <p>2025 SkyLog - by Michal Nowak</p>
+              <p>Crafted with ☁️ and ❤️ for sky enthusiasts.</p>
+              <div className="mt-4 flex items-center gap-2"><GithubIcon /> <a href="https://github.com/minowak/flight-stats">Repo</a> </div>
+            </div>
+          </footer>
         </div>
       </body>
     </html>

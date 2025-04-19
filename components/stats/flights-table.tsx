@@ -118,7 +118,7 @@ export const FlightsTable: React.FC<Props> = ({ data: flightData }: Props) => {
           </TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">#</TableHead>
+              <TableHead className="w-[100px] select-none">#</TableHead>
               <TableHead>
                 <SortableHeader
                   sortBy={sortBy}

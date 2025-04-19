@@ -88,7 +88,7 @@ export default function Home() {
         <StatsCard title="Map" icon={<MapIcon />}>
           <FlightMapWrapper />
         </StatsCard>
-        <div className="hidden md:visible">
+        <div className="hidden sm:block">
           <StatsCard title="Flights list" icon={<TableIcon />}>
             <FlightsTable data={filteredData} />
           </StatsCard>
