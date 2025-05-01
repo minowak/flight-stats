@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sky Log",
+  title: "SkyLog",
   description: "Track your flights",
 };
 
@@ -33,9 +33,11 @@ export default async function RootLayout({
   const { currentUser } = await getAuthenticatedAppForUser()
 
   return (
-    <html lang="en">
+    <html lang="en" className="hentry">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full entry-content`}
+        data-rm-theme="light"
+        lang="en"
       >
         <div className="flex flex-col justify-stretch h-screen">
           <TopBar initialUser={(currentUser?.toJSON()) as User} />

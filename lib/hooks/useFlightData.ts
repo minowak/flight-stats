@@ -14,7 +14,7 @@ export function useFlightData(): [FlightData, () => void] {
 
   const refreshCallback = useCallback(() => {
     getFlights(user).then((data) => {
-      setFlightData({ flights: data } as FlightData)
+      setFlightData({ flights: (data || []) } as FlightData)
     });
   }, [setFlightData, user])
 
