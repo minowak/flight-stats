@@ -66,7 +66,7 @@ export default function Home() {
     <div>
       <div className="space-y-4">
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-4">
-          <StatsCard title="Flights" icon={<PlaneTakeoffIcon />} value={stats?.count} />
+          <StatsCard title="Flights" icon={<PlaneTakeoffIcon />} value={stats?.count || "0"} />
           <StatsCard title="Airports" icon={<TowerControlIcon />} value={stats ? "" + Object.keys(stats?.airportStats || []).length : "0"} />
           <StatsCard title="Total distance" icon={<SplineIcon />} value={"" + distance.toLocaleString(undefined, { maximumFractionDigits: 0 }) + " km"} />
           <StatsCard title="Total time" icon={<ClockIcon />} value={time} loading={!time} />
