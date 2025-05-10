@@ -177,7 +177,7 @@ export const FlightsTable: React.FC<Props> = ({ data: flightData }: Props) => {
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Trash2Icon
-                        className="text-destructive cursor-pointer" />
+                        className="text-accent cursor-pointer" />
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>

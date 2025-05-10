@@ -44,7 +44,7 @@ export default async function RootLayout({
               {children}
             </main>
             <Toaster />
-            <footer className="text-sm text-muted-foreground py-8 flex items-center justify-center">
+            <footer className="text-sm text-muted-foreground py-8 flex items-center justify-center px-4">
               <div className="max-w-[500px]">
                 <p>2025 SkyLog - by Michal Nowak</p>
                 <p>Crafted with ☁️ and ❤️ for sky enthusiasts.</p>
