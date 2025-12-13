@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { JSX, PropsWithChildren } from "react"
-import { Spinner } from "../ui/spinner"
 import { Skeleton } from "../ui/skeleton"
 
 type Props = {

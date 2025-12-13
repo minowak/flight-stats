@@ -69,7 +69,7 @@ export default function Home() {
           <StatsCard title="Flights" icon={<PlaneTakeoffIcon />} value={stats?.count} />
           <StatsCard title="Airports" icon={<TowerControlIcon />} value={stats ? "" + Object.keys(stats?.airportStats || []).length : "0"} />
           <StatsCard title="Total distance" icon={<SplineIcon />} value={"" + distance.toLocaleString(undefined, { maximumFractionDigits: 0 }) + " km"} />
-          <StatsCard title="Total time" icon={<ClockIcon />} value={time} loading={!time} />
+          <StatsCard title="Total time" icon={<ClockIcon />} value={time} />
         </div>
         <StatsCard title="Distance to the moon" icon={<MoonStarIcon />}>
           <DistanceToTheMoon distance={distance} />
