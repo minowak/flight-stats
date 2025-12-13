@@ -34,42 +34,53 @@ export function DatePicker({ date, setDate }: Props) {
   }
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          variant={"outline"}
-          className={cn(
-            "w-full sm:w-[280px] justify-start text-left font-normal",
-            !date && "text-muted-foreground"
-          )}
-        >
-          <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0 sm:flex relative z-[9999]">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          initialFocus
-        />
-        <div className="p-4 space-y-4 flex flex-col justify-center items-center">
-          <div>
-            <div className="text-semibold text-xs">Hour</div>
-            <Input type="number" className="w-16" max={23} min={0}
-              value={date ? DateTime.fromJSDate(date).get('hour') : 0}
-              onChange={(e) => setHour(parseInt(e.target.value))} />
-          </div>
-          <div>
-            <div className="text-semibold text-xs">Minute</div>
-            <Input type="number" className="w-16" max={59} min={0}
-              value={date ? DateTime.fromJSDate(date).get('minute') : 0}
-              onChange={(e) => setMinute(parseInt(e.target.value))} />
-          </div>
-        </div>
-      </PopoverContent>
-    </Popover>
+    <>
+      <Input className="sm:hidden w-full" type="datetime-local"
+        value={date?.toISOString().slice(0, 16)}
+        onChange={(e) => {
+          console.log(e.target.value)
+          setDate(new Date(e.target.value))
+        }
+        } />
+      <div className="sm:block hidden w-full sm:w-[300px]">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant={"outline"}
+              className={cn(
+                "w-full justify-start text-left font-normal",
+                !date && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {date ? format(date, "PPP") : <span>Pick a date</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0 sm:flex relative z-[9999]">
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={setDate}
+              initialFocus
+            />
+            <div className="p-4 space-y-4 flex flex-col justify-center items-center">
+              <div>
+                <div className="text-semibold text-xs">Hour</div>
+                <Input type="number" className="w-16" max={23} min={0}
+                  value={date ? DateTime.fromJSDate(date).get('hour') : 0}
+                  onChange={(e) => setHour(parseInt(e.target.value))} />
+              </div>
+              <div>
+                <div className="text-semibold text-xs">Minute</div>
+                <Input type="number" className="w-16" max={59} min={0}
+                  value={date ? DateTime.fromJSDate(date).get('minute') : 0}
+                  onChange={(e) => setMinute(parseInt(e.target.value))} />
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </>
   )
 }
 

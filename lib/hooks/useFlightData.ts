@@ -10,6 +10,7 @@ export function useFlightData(): [FlightData, () => void] {
   const [flightData, setFlightData] = useAtom<FlightData>(flightDataAtom)
 
   const refresh = () => {
+    refreshCallback();
   }
 
   const refreshCallback = useCallback(() => {

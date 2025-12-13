@@ -179,7 +179,7 @@ export const FlightsTable: React.FC<Props> = ({ data: flightData }: Props) => {
                       <Trash2Icon
                         className="text-accent cursor-pointer" />
                     </AlertDialogTrigger>
-                    <AlertDialogContent>
+                    <AlertDialogContent className="z-[99999]">
                       <AlertDialogHeader>
                         <AlertDialogTitle>Remove flight?</AlertDialogTitle>
                         <AlertDialogDescription>

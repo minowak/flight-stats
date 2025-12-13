@@ -142,3 +142,7 @@ main {
 button {
   @apply outline-none;
 }
+
+input {
+  color-scheme: dark;
+}
